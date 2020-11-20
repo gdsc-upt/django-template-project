@@ -5,7 +5,7 @@ IF NOT EXIST venv (
     where python
     python --version || goto :error
     echo Checking variables configuration
-    python src/check_env_vars.py || goto :error
+    python src/check_config_vars.py || goto :error
     echo Creating new virtualenv...
     python -m venv venv || goto :error
 )
