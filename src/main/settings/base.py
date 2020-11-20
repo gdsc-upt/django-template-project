@@ -27,9 +27,11 @@ AdminSite.site_title = config.get('SITE_TITLE', 'Django Template Project')
 AdminSite.site_header = config.get('SITE_HEADER', 'Django Template Project')
 SECRET_KEY = config.get('SECRET_KEY', raise_error=True)
 DEBUG = config.get('DEBUG', False, cast=bool)
-ALLOWED_HOSTS = config.get('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
 
 INSTALLED_APPS = [
+    'administration',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,10 +75,10 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgres',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config.get('DB_NAME', raise_error=True),
-        'USER': config.get('DB_USER', raise_error=True),
-        'PASSWORD': config.get('DB_PASSWORD'),
+        'USER': config.get('DB_USER', default='root'),
+        'PASSWORD': config.get('DB_PASSWORD', default='toor'),
         'HOST': config.get('DB_HOST', default='127.0.0.1'),
         'PORT': config.get('DB_PORT', default='5432', cast=int)
     }
@@ -84,6 +86,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'administration.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -115,5 +118,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static"
+# ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

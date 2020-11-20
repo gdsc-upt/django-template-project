@@ -1,5 +1,5 @@
 import os
-from typing import AnyStr, Union, Callable
+from typing import AnyStr, Callable
 
 import yaml
 
@@ -17,7 +17,10 @@ class Config(object):
     def get(self, var_name: AnyStr, default=None, cast: Callable = str, raise_error=False):
         value = self.__config.get(var_name, None)
         if value is not None:
-            return cast(value)
+            value = cast(value)
+            if isinstance(value, str):
+                value = value.strip()
+            return value
 
         if default is not None:
             return cast(default)
