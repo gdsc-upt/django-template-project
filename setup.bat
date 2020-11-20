@@ -4,6 +4,8 @@ IF NOT EXIST venv (
     echo Python system interpreter:
     where python
     python --version || goto :error
+    echo Checking variables configuration
+    python src/check_env_vars.py || goto :error
     echo Creating new virtualenv...
     python -m venv venv || goto :error
 )
@@ -23,9 +25,9 @@ pip install -U -r requirements.txt || goto :error
 
 :no-pip
 echo Setting up database...
-python manage.py migrate || goto :error
+python src/manage.py migrate || goto :error
 echo Ensuring admin user...
-python manage.py shell -c "import createsuperuser"
+python src/manage.py shell -c "import createsuperuser"
 goto :EOF
 
 :error
