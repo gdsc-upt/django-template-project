@@ -14,7 +14,7 @@ class Config(object):
             if not self.__config:
                 raise Exception('Config file is empty!')
 
-    def get(self, var_name: AnyStr, default=None, cast: Callable = str, raise_error=False):
+    def get(self, var_name: AnyStr, default=None, cast: Callable = str, raise_error: bool = False):
         value = self.__config.get(var_name, None)
         if value is not None:
             value = cast(value)

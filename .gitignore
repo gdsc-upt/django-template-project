@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/pycharm+all,vscode,python,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=pycharm+all,vscode,python,node
 
+# Custom
+/media/*
+!/*/.gitkeep
+
 ### Node ###
 # Logs
 logs

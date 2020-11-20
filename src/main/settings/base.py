@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.' + ('mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'),
         'NAME': config.get('DB_NAME', raise_error=True),
         'USER': config.get('DB_USER', default='root'),
         'PASSWORD': config.get('DB_PASSWORD', default='toor'),
@@ -119,11 +119,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static"
-# ]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -5,6 +5,7 @@ ALLOWED_HOSTS:
   - 127.0.0.1
 SITE_TITLE: Django Template Project
 SITE_HEADER: Django Template Project
+USE_MYSQL:
 DB_NAME:
 DB_USER:
 DB_PASSWORD:
