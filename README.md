@@ -10,7 +10,7 @@ new project with Django and it's common settings.
         * open your database client (such as **pgAdmin**) and create a user with a password, such as ``root`` and password
          ``toor``
         * create a new database and give it a name (for example ``template``) and set **collation** to ``UTF-8``
-    1. Using **Docker** (if you have Windows **Home** edition, it won't work, go to Bare Metal install):
+    1. Using **Docker** (if you have Windows **Home** edition then install [Docker for Win 10 Home]):
         * download and install [Docker]
         * open a **CMD** or **Git Bash Shell** and go (change directory / cd) to the ``database`` folder of this project
         * run ``dir`` in **CMD** or ``ls`` in **Git Bash Shell** and if you don't see ``docker-compose.yml`` file then you're in the wrong
@@ -28,3 +28,4 @@ when installation wizard appears
 [PostgreSQL]: https://www.postgresql.org/download/
 [Docker]: https://www.docker.com/products/docker-desktop
 [Python]: https://www.python.org/downloads/
+[Docker for Win 10 Home]: https://docs.docker.com/docker-for-windows/install-windows-home/?fbclid=IwAR3x-_z4-B3RbAfNliOfogpqVcZlOzQLmpOc5kgU4p0d4Tbfa43TDruWrmw
