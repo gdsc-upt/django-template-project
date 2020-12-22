@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from corsheaders.defaults import default_methods, default_headers
 from django.contrib.admin import AdminSite
 
-from utils import Config
+from common.utils import Config
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
@@ -25,12 +26,18 @@ config = Config(CONFIG_FILE)
 
 AdminSite.site_title = config.get('SITE_TITLE', 'Django Template Project')
 AdminSite.site_header = config.get('SITE_HEADER', 'Django Template Project')
+AdminSite.index_title = config.get('INDEX_TITLE', 'Django Template Administration')
 SECRET_KEY = config.get('SECRET_KEY', raise_error=True)
 DEBUG = config.get('DEBUG', False, cast=bool)
 ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
 
 INSTALLED_APPS = [
     'administration',
+    'common',
+
+    'rest_framework',
+    'drf_yasg',
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,3 +134,14 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#######################################
+# CORS CONFIGS
+CORS_ORIGIN_WHITELIST = config.get('CORS_ORIGIN_WHITELIST', default='http://localhost:4200', cast=tuple)
+CORS_ALLOW_METHODS = default_methods
+CORS_ALLOW_HEADERS = default_headers
+
+#######################################
+# THUMBNAIL CONFIGS
+ADMIN_THUMBNAIL_STYLE = {'display': 'block', 'width': f"{config.get('THUMBNAIL_SIZE', default='200')}px", 'height': 'auto'}
+ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}

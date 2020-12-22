@@ -3,11 +3,16 @@ SECRET_KEY:
 ALLOWED_HOSTS:
   - localhost
   - 127.0.0.1
+CORS_ORIGIN_WHITELIST:
+  - http://localhost:4200
+  - https://timis.tech
 SITE_TITLE: Django Template Project
 SITE_HEADER: Django Template Project
+INDEX_TITLE: Django Template Administration
 USE_MYSQL:
 DB_NAME:
 DB_USER:
 DB_PASSWORD:
 DB_HOST:
 DB_PORT:
+THUMBNAIL_SIZE:
