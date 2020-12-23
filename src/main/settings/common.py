@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from typing import AnyStr
 
 from corsheaders.defaults import default_methods, default_headers
 from django.contrib.admin import AdminSite
@@ -34,11 +35,9 @@ ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
 INSTALLED_APPS = [
     'administration',
     'common',
-
     'rest_framework',
     'drf_yasg',
     'corsheaders',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,17 +77,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+def get_database_engine() -> AnyStr:
+    return (
+        'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
+    )
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.' + ('mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'),
+        'ENGINE': 'django.db.backends.' + get_database_engine(),
         'NAME': config.get('DB_NAME', raise_error=True),
         'USER': config.get('DB_USER', default='root'),
         'PASSWORD': config.get('DB_PASSWORD', default='toor'),
         'HOST': config.get('DB_HOST', default='127.0.0.1'),
-        'PORT': config.get('DB_PORT', default='5432', cast=int)
+        'PORT': config.get('DB_PORT', default='5432', cast=int),
     }
 }
 
@@ -137,11 +142,34 @@ MEDIA_URL = '/media/'
 
 #######################################
 # CORS CONFIGS
-CORS_ORIGIN_WHITELIST = config.get('CORS_ORIGIN_WHITELIST', default='http://localhost:4200', cast=tuple)
+CORS_ORIGIN_WHITELIST = config.get(
+    'CORS_ORIGIN_WHITELIST', default=('http://localhost:4200',), cast=tuple
+)
 CORS_ALLOW_METHODS = default_methods
 CORS_ALLOW_HEADERS = default_headers
 
 #######################################
 # THUMBNAIL CONFIGS
-ADMIN_THUMBNAIL_STYLE = {'display': 'block', 'width': f"{config.get('THUMBNAIL_SIZE', default='200')}px", 'height': 'auto'}
+ADMIN_THUMBNAIL_STYLE = {
+    'display': 'block',
+    'width': f"{config.get('THUMBNAIL_SIZE', default='200')}px",
+    'height': 'auto',
+}
 ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'DEFAULT_MODEL_RENDERING': 'example',
+    'DEFAULT_MODEL_DEPTH': 1,
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
+    },
+}
+
+MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL') or config.get('EMAIL_HOST_USER')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True

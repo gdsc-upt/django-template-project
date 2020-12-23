@@ -1,4 +1,6 @@
-from django.contrib.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin, register
+
+from common.models import Example
 
 
 class BaseModelAdmin(ModelAdmin):
@@ -10,9 +12,15 @@ class SlugableModelAdmin(ModelAdmin):
 
 
 CREATED_UPDATED = (
-    'Created / Updated', {
+    'Created / Updated',
+    {
         'classes': ('collapse',),
         'fields': ('created', 'updated'),
-        'description': 'Info about the time this entry was added here or updated'
-    }
+        'description': 'Info about the time this entry was added here or updated',
+    },
 )
+
+
+@register(Example)
+class ExampleAdmin(ModelAdmin):
+    list_display = ('name', 'is_published')

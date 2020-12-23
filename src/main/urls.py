@@ -16,20 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-schema_view = get_schema_view(
+from common.urls import common_urls
+
+SchemaView = get_schema_view(
     openapi.Info(
-        title=admin.site.site_header + " API",
+        title=admin.site.site_header + ' API',
         default_version='v1',
-        description=admin.site.site_header + " API description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="dsc.upt@gmail.com"),
-        license=openapi.License(name="BSD License"),
+        description=admin.site.site_header + ' API description',
+        terms_of_service='https://www.google.com/policies/terms/',
+        contact=openapi.Contact(email='dsc.upt@gmail.com'),
+        license=openapi.License(name='BSD License'),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -38,8 +40,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/admin/')),
     path('api/admin/', admin.site.urls),
-    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger'),
-
+    path('api/swagger/', SchemaView.with_ui()),
+    path('api/', include(common_urls)),
 ]
 
 if settings.DEBUG:
