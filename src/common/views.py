@@ -21,4 +21,4 @@ from common.utils import create_swagger_info
 )
 class ExampleViewSet(ModelViewSet):
     serializer_class = ExampleSerializer
-    queryset: QuerySet[Example] = Example.objects.filter(is_published=True)
+    queryset: QuerySet[Example] = Example.published.all()

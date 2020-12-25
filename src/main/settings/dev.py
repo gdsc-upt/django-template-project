@@ -36,6 +36,8 @@ LOGGING = {
 
 QUERYCOUNT = {
     'DISPLAY_DUPLICATES': 100,
+    'IGNORE_SQL_PATTERNS': [r'django', r'auth'],
+    'IGNORE_REQUEST_PATTERNS': [r'/serviceworker.js', r'/api/admin/jsi18n/', r'/media/*'],
 }
 
 # used for django debug toolbar

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'grappelli.dashboard',
     'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -174,3 +175,7 @@ EMAIL_USE_TLS = True
 # Custom grappelli dashboard setup
 # https://django-grappelli.readthedocs.io/en/latest/dashboard_setup.html
 GRAPPELLI_INDEX_DASHBOARD = 'main.dashboard.CustomIndexDashboard'
+
+# https://django-filebrowser.readthedocs.io/en/latest/settings.html
+FILEBROWSER_DIRECTORY = ''
+FILEBROWSER_VERSIONS_BASEDIR = '_versions'

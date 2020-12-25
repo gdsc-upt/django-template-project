@@ -3,7 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=pycharm+all,vscode,python,node
 
 # Custom
-/media/*
+/src/media/*
 !/*/.gitkeep
 
 ### Node ###

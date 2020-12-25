@@ -21,6 +21,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from filebrowser.sites import site
 from rest_framework import permissions
 
 from common.urls import common_urls
@@ -43,6 +44,7 @@ urlpatterns = [
     path('api/grappelli/', include('grappelli.urls')),
     path('api/admin/docs/', include('django.contrib.admindocs.urls')),
     path('api/admin/', admin.site.urls),
+    path('api/filebrowser/', site.urls),
     path('api/swagger/', SchemaView.with_ui()),
     path('api/', include(common_urls)),
 ]
