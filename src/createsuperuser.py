@@ -8,6 +8,6 @@ PASSWORD = 'admin'
 try:
     get_user_model().objects.create_superuser(USERNAME, EMAIL, PASSWORD)
 except IntegrityError:
-    print("User '%s <%s>' already exists" % (USERNAME, EMAIL))
+    print(f"User '{USERNAME} <{EMAIL}>' already exists")
 else:
-    print("Created superuser '%s <%s>' with password '%s'" % (USERNAME, EMAIL, PASSWORD))
+    print(f"Created superuser '{USERNAME} <{EMAIL}>' with password '{PASSWORD}'")

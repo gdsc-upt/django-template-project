@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 from typing import AnyStr
 
-from corsheaders.defaults import default_methods, default_headers
 from django.contrib.admin import AdminSite
 
 from common.utils import Config
@@ -120,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Bucharest'
@@ -142,13 +140,11 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#######################################
-# CORS CONFIGS
+# Cross-Origin Resource Sharing
+# https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_WHITELIST = config.get(
     'CORS_ORIGIN_WHITELIST', default=('http://localhost:4200',), cast=tuple
 )
-CORS_ALLOW_METHODS = default_methods
-CORS_ALLOW_HEADERS = default_headers
 
 #######################################
 # THUMBNAIL CONFIGS
@@ -159,6 +155,7 @@ ADMIN_THUMBNAIL_STYLE = {
 }
 ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
 
+# https://drf-yasg.readthedocs.io/en/stable/settings.html
 SWAGGER_SETTINGS = {
     # 'USE_SESSION_AUTH': False,
     'DEFAULT_MODEL_RENDERING': 'example',
@@ -174,4 +171,6 @@ EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
+# Custom grappelli dashboard setup
+# https://django-grappelli.readthedocs.io/en/latest/dashboard_setup.html
 GRAPPELLI_INDEX_DASHBOARD = 'main.dashboard.CustomIndexDashboard'

@@ -3,7 +3,8 @@ name = "django-template-project"
 version = "0.1.0"
 description = "A template to start hacking with Django"
 authors = ["Dan Percic <danpercic86@gmail.com>"]
-license = "LICENCE"
+license = "Apache-2.0"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -27,6 +28,7 @@ pycodestyle = "^2.6.0"
 django-querycount = "^0.7.0"
 django-debug-toolbar = "^3.2"
 nplusone = "^1.0.0"
+django-extra-checks = "^0.8.0"
 
 [tool.black]
 line-length = 100

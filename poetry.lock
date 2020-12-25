@@ -173,6 +173,17 @@ Django = ">=2.2"
 sqlparse = ">=0.2.0"
 
 [[package]]
+name = "django-extra-checks"
+version = "0.8.0"
+description = "Collection of useful checks for Django Checks Framework"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+dev = ["pytest", "pytest-django", "pytest-cov", "django", "djangorestframework", "django-stubs (==1.5.0)", "djangorestframework-stubs (==1.2.0)", "flake8 (>=3.8)", "flake8-bugbear", "pre-commit", "isort (>=5.0)", "pdbpp", "tox"]
+
+[[package]]
 name = "django-grappelli"
 version = "2.14.3"
 description = "A jazzy skin for the Django Admin-Interface."
@@ -540,7 +551,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d966fdda26e1f2e7b0c8b36c6190172255bddd7c3fae21184c55b5408e23f46f"
+content-hash = "fef959632e33163af75874b5879381b3c8d8bead884e4e800cb4d1393f93d15d"
 
 [metadata.files]
 appdirs = [
@@ -599,6 +610,10 @@ django-cors-headers = [
 django-debug-toolbar = [
     {file = "django-debug-toolbar-3.2.tar.gz", hash = "sha256:84e2607d900dbd571df0a2acf380b47c088efb787dce9805aefeb407341961d2"},
     {file = "django_debug_toolbar-3.2-py3-none-any.whl", hash = "sha256:9e5a25d0c965f7e686f6a8ba23613ca9ca30184daa26487706d4829f5cfb697a"},
+]
+django-extra-checks = [
+    {file = "django-extra-checks-0.8.0.tar.gz", hash = "sha256:25caa58baa557b4615af0363c14c340376a7cc08c41fbc2dbd35ff487e3282fe"},
+    {file = "django_extra_checks-0.8.0-py3-none-any.whl", hash = "sha256:a37a4a9a22f2efa0e04a277b8d36e52f037a9e7edbcfcc2bb0860d608908d4c5"},
 ]
 django-grappelli = [
     {file = "django-grappelli-2.14.3.tar.gz", hash = "sha256:4c499a8c9b1b4999fa361c69f58970959dc3530c36f5c5454d4c360e1962a0b3"},
