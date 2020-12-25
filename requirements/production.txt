@@ -1,4 +1,0 @@
--r common.txt
-
-gunicorn
-whitenoise

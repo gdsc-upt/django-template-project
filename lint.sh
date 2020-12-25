@@ -15,22 +15,22 @@ print_warn() {
   echo -e "${YELLOW}$1${WHITE}"
 }
 
-print_success 'Running pylint...'
-pylint src --rcfile=.pylintrc
-print_success 'Done pylint!'
-
 print_success "Running black..."
-if ! black --check -v --diff --color -S --exclude=migrations --target-version=py38 src; then
+if ! black --check -v --diff --color -S src; then
   print_error "Black errors found! Run auto-formatter? (y/n)"
   read -r option
   if [ "$option" == "y" ]; then
-    black -S --exclude=migrations --target-version=py38 src;
+    black -S src
   else
     print_warn "Black code style skipped!"
   fi
 else
   print_success "Done black!"
 fi
+
+print_success 'Running pylint...'
+pylint src --rcfile=.pylintrc
+print_success 'Done pylint!'
 
 print_success 'Running pycodestyle...'
 pycodestyle --exclude=migrations --max-line-length=100 src

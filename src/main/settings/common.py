@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
+    'grappelli.dashboard',
+    'grappelli',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.admindocs.middleware.XViewMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -81,9 +85,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 def get_database_engine() -> AnyStr:
-    return (
-        'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
-    )
+    return 'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
 
 
 DATABASES = {
@@ -123,9 +125,9 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Bucharest'
 
-USE_I18N = True
+USE_I18N = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -158,12 +160,10 @@ ADMIN_THUMBNAIL_STYLE = {
 ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
 
 SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,
+    # 'USE_SESSION_AUTH': False,
     'DEFAULT_MODEL_RENDERING': 'example',
     'DEFAULT_MODEL_DEPTH': 1,
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
-    },
+    'SECURITY_DEFINITIONS': {'Bearer': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}},
 }
 
 MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -173,3 +173,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
+
+GRAPPELLI_INDEX_DASHBOARD = 'main.dashboard.CustomIndexDashboard'

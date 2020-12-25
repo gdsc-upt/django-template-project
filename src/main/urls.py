@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import debug_toolbar
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,6 +40,8 @@ SchemaView = get_schema_view(
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/admin/')),
+    path('api/grappelli/', include('grappelli.urls')),
+    path('api/admin/docs/', include('django.contrib.admindocs.urls')),
     path('api/admin/', admin.site.urls),
     path('api/swagger/', SchemaView.with_ui()),
     path('api/', include(common_urls)),
@@ -47,3 +50,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [path('api/__debug__/', include(debug_toolbar.urls))]

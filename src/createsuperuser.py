@@ -10,6 +10,4 @@ try:
 except IntegrityError:
     print("User '%s <%s>' already exists" % (USERNAME, EMAIL))
 else:
-    print(
-        "Created superuser '%s <%s>' with password '%s'" % (USERNAME, EMAIL, PASSWORD)
-    )
+    print("Created superuser '%s <%s>' with password '%s'" % (USERNAME, EMAIL, PASSWORD))

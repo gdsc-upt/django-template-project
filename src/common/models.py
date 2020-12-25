@@ -36,6 +36,10 @@ class CreatedUpdatedModel(Model):
 
 
 class Example(CreatedUpdatedModel):
+    """
+    Example model docstring that should be visible in Django documentation
+    """
+
     name = CharField(max_length=300)
     is_published = BooleanField()
 
