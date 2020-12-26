@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'administration',
     'common',
     'rest_framework',
-    'drf_yasg',
+    'drf_spectacular',
     'corsheaders',
     'django.contrib.contenttypes',
     'grappelli.dashboard',
@@ -156,14 +156,6 @@ ADMIN_THUMBNAIL_STYLE = {
 }
 ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
 
-# https://drf-yasg.readthedocs.io/en/stable/settings.html
-SWAGGER_SETTINGS = {
-    # 'USE_SESSION_AUTH': False,
-    'DEFAULT_MODEL_RENDERING': 'example',
-    'DEFAULT_MODEL_DEPTH': 1,
-    'SECURITY_DEFINITIONS': {'Bearer': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}},
-}
-
 MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL') or config.get('EMAIL_HOST_USER')
 EMAIL_HOST = 'smtp.gmail.com'
@@ -179,3 +171,39 @@ GRAPPELLI_INDEX_DASHBOARD = 'main.dashboard.CustomIndexDashboard'
 # https://django-filebrowser.readthedocs.io/en/latest/settings.html
 FILEBROWSER_DIRECTORY = ''
 FILEBROWSER_VERSIONS_BASEDIR = '_versions'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    # path prefix is used for tagging the discovered operations.
+    # use '/api/v[0-9]' for tagging apis like '/api/v1/albums' with ['albums']
+    'SCHEMA_PATH_PREFIX': r'/api',
+
+    # Dictionary of configurations to pass to the SwaggerUI({ ... })
+    # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
+    # 'SWAGGER_UI_SETTINGS': {
+    #     'deepLinking': True,
+    # },
+    'SWAGGER_UI_FAVICON_HREF': '//unpkg.com/swagger-ui-dist@3.35.1/favicon-32x32.png',
+
+    # General schema metadata. Refer to spec for valid inputs
+    # https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
+    'TITLE': AdminSite.site_title + ' API',
+    'DESCRIPTION': 'API Description',
+    'TOS': None,
+    # Optional: MAY contain "name", "url", "email"
+    'CONTACT': {
+        'name': 'Contact name',
+        'url': 'https://google.com',
+        'email': 'Contact email'
+    },
+    # Optional: MUST contain "name", MAY contain URL
+    'LICENSE': {},
+    'VERSION': '0.1.0',
+    # Tags defined in the global scope
+    # 'TAGS': [],
+    # # Optional: MUST contain 'url', may contain "description"
+    # 'EXTERNAL_DOCS': {},
+}
