@@ -187,6 +187,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "django-tabular-permissions"
+version = "2.8"
+description = "Display django permissions in a tabular format that is user friendly, and highly customisable"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "djangorestframework"
 version = "3.12.2"
 description = "Web APIs for Django, made easy."
@@ -458,7 +466,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "35d37cc443361e7ece715a891a18afd08adbc8b59d4a1912e181d25cc4497ace"
+content-hash = "04b3d5e4b08dc2584401164656cb11dbf0269a43663e72db0954ceb407c4f76a"
 
 [metadata.files]
 appdirs = [
@@ -520,6 +528,9 @@ django-model-utils = [
 ]
 django-querycount = [
     {file = "django-querycount-0.7.0.tar.gz", hash = "sha256:8f5123d78716ff0704f2373e746a7200b8d8417798ce4a99bf2de87e3768f9ce"},
+]
+django-tabular-permissions = [
+    {file = "django-tabular-permissions-2.8.tar.gz", hash = "sha256:7f47160b45a7ab1700a8f6be7f664ab0f00df231055d93c4a17b7e7582561fde"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.12.2-py3-none-any.whl", hash = "sha256:0209bafcb7b5010fdfec784034f059d512256424de2a0f084cb82b096d6dd6a7"},

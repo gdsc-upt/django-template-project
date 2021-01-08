@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
+    'tabular_permissions',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -82,13 +83,13 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-def get_database_engine() -> AnyStr:
+def get_db_backend_name() -> AnyStr:
     return 'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.' + get_database_engine(),
+        'ENGINE': 'django.db.backends.' + get_db_backend_name(),
         'NAME': config.get('DB_NAME', raise_error=True),
         'USER': config.get('DB_USER', default='root'),
         'PASSWORD': config.get('DB_PASSWORD', default='toor'),
