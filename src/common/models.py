@@ -1,18 +1,10 @@
-from typing import final, AnyStr, Final, Optional
+from typing import final, AnyStr, Final
 
 from django.db.models import Model, BooleanField, SlugField, CharField
 from django.utils.translation import gettext as _
-from filebrowser.fields import FileBrowseField
 from model_utils import Choices
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel, StatusModel
-
-
-class PublishableModel(Model):
-    is_published = BooleanField(_('is published?'), db_index=True)
-
-    class Meta:
-        abstract = True
 
 
 class SlugableModel(Model):
@@ -26,7 +18,7 @@ class BaseModel(Model):
     class Meta:
         abstract = True
 
-    def get_change_url(self) -> Optional[AnyStr]:
+    def get_change_url(self) -> AnyStr:
         from django.urls import reverse_lazy
 
         return reverse_lazy(
@@ -59,10 +51,11 @@ class Example(TimeStampedModel, StatusModel, BaseModel):
         max_length=300,
         help_text=_('Some help text that is shown in documentation'),
     )
-    image = FileBrowseField(_('example image'), max_length=200, blank=True)
     published_at = MonitorField(
         _('publishing datetime'), monitor='status', when=['published'], editable=False
     )
+
+    published: Manager
 
     def __str__(self) -> AnyStr:
         return str(self.name)

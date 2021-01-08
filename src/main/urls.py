@@ -19,16 +19,13 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from filebrowser.sites import site
 
 from common.urls import common_urls
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/api/admin/')),
-    path('api/grappelli/', include('grappelli.urls')),
-    path('api/admin/docs/', include('django.contrib.admindocs.urls')),
+    path('', RedirectView.as_view(pattern_name='admin:index', permanent=True)),
+    path('api/admin/docs/', include('django.contrib.admindocs.urls'), name='docs'),
     path('api/admin/', admin.site.urls),
-    path('api/filebrowser/', site.urls),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema')),
     path('api/', include(common_urls)),
@@ -36,6 +33,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += [path('api/__debug__/', include(debug_toolbar.urls))]
+    urlpatterns += [path('api/__debug__/', include(debug_toolbar.urls), name='debug')]
