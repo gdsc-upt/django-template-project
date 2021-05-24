@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-from typing import AnyStr
+from typing import Dict
 
 from django.contrib.admin import AdminSite
 
@@ -21,266 +21,276 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-CONFIG_FILE = os.path.join(BASE_DIR, '..', 'config.yml')
+CONFIG_FILE = os.path.join(BASE_DIR, "..", "config.yml")
 config = Config(CONFIG_FILE)
 
-AdminSite.site_title = config.get('SITE_TITLE', 'Django Template Project')
-AdminSite.site_header = config.get('SITE_HEADER', 'Django Template Project')
-AdminSite.index_title = config.get('INDEX_TITLE', 'Django Template Administration')
-SECRET_KEY = config.get('SECRET_KEY', raise_error=True)
-DEBUG = config.get('DEBUG', False, cast=bool)
-ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', cast=list)
+AdminSite.site_title = config.get("SITE_TITLE", "Django Template Project")
+AdminSite.site_header = config.get("SITE_HEADER", "Django Template Project")
+AdminSite.index_title = config.get("INDEX_TITLE", "Django Template Administration")
+SECRET_KEY = config.get("SECRET_KEY", raise_error=True)
+DEBUG = config.get("DEBUG", False, cast=bool)
+ALLOWED_HOSTS = config.get("ALLOWED_HOSTS", cast=list)
 
 INSTALLED_APPS = [
-    'administration',
-    'common',
-    'rest_framework',
-    'drf_spectacular',
-    'corsheaders',
-    'django.contrib.contenttypes',
-    'jazzmin',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-    'django.contrib.auth',
-    'tabular_permissions',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "administration",
+    "common",
+    "rest_framework",
+    "drf_spectacular",
+    "corsheaders",
+    "django.contrib.contenttypes",
+    "jazzmin",
+    "django.contrib.admin",
+    "django.contrib.admindocs",
+    "django.contrib.auth",
+    "tabular_permissions",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.admindocs.middleware.XViewMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.contrib.admindocs.middleware.XViewMiddleware",
 ]
 
-ROOT_URLCONF = 'main.urls'
+ROOT_URLCONF = "main.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'main.wsgi.application'
+WSGI_APPLICATION = "main.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-def get_db_backend_name() -> AnyStr:
-    return 'mysql' if config.get('USE_MYSQL', default=False, cast=bool) else 'postgresql'
+def get_db_backend_name() -> str:
+    return (
+        "mysql" if config.get("USE_MYSQL", default=False, cast=bool) else "postgresql"
+    )
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.' + get_db_backend_name(),
-        'NAME': config.get('DB_NAME', raise_error=True),
-        'USER': config.get('DB_USER', default='root'),
-        'PASSWORD': config.get('DB_PASSWORD', default='toor'),
-        'HOST': config.get('DB_HOST', default='127.0.0.1'),
-        'PORT': config.get('DB_PORT', default='5432', cast=int),
+    "default": {
+        "ENGINE": "django.db.backends." + get_db_backend_name(),
+        "NAME": config.get("DB_NAME", raise_error=True),
+        "USER": config.get("DB_USER", default="root"),
+        "PASSWORD": config.get("DB_PASSWORD", default="toor"),
+        "HOST": config.get("DB_HOST", default="127.0.0.1"),
+        "PORT": config.get("DB_PORT", default="5432", cast=int),
     }
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-AUTH_USER_MODEL = 'administration.User'
+AUTH_USER_MODEL = "administration.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation"
+        ".UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Europe/Bucharest'
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "Europe/Bucharest"
 USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'staticfiles',
+    BASE_DIR / "staticfiles",
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 # Cross-Origin Resource Sharing
 # https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_WHITELIST = config.get(
-    'CORS_ORIGIN_WHITELIST', default=('http://localhost:4200',), cast=tuple
+    "CORS_ORIGIN_WHITELIST", default=("http://localhost:4200",), cast=tuple
 )
 
 #######################################
 # THUMBNAIL CONFIGS
 ADMIN_THUMBNAIL_STYLE = {
-    'display': 'block',
-    'width': f'{config.get("THUMBNAIL_SIZE", default=200)}px',
-    'height': 'auto',
+    "display": "block",
+    "width": f'{config.get("THUMBNAIL_SIZE", default=200)}px',
+    "height": "auto",
 }
-ADMIN_THUMBNAIL_BACKGROUND_STYLE = {'background': '#808080'}
+ADMIN_THUMBNAIL_BACKGROUND_STYLE = {"background": "#808080"}
 
-MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = config.get('DEFAULT_FROM_EMAIL') or config.get('EMAIL_HOST_USER')
-EMAIL_HOST = 'smtp.gmail.com'
+MAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = config.get("DEFAULT_FROM_EMAIL") or config.get("EMAIL_HOST_USER")
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-SPECTACULAR_SETTINGS = {
+SPECTACULAR_SETTINGS: Dict = {
     # path prefix is used for tagging the discovered operations.
     # use '/api/v[0-9]' for tagging apis like '/api/v1/albums' with ['albums']
-    'SCHEMA_PATH_PREFIX': r'/api',
+    "SCHEMA_PATH_PREFIX": r"/api",
     # Dictionary of configurations to pass to the SwaggerUI({ ... })
     # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
     # 'SWAGGER_UI_SETTINGS': {
     #     'deepLinking': True,
     # },
-    'SWAGGER_UI_FAVICON_HREF': '//unpkg.com/swagger-ui-dist@3.35.1/favicon-32x32.png',
+    "SWAGGER_UI_FAVICON_HREF": "//unpkg.com/swagger-ui-dist@3.35.1/favicon-32x32.png",
     # General schema metadata. Refer to spec for valid inputs
     # https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
-    'TITLE': AdminSite.site_title + ' API',
-    'DESCRIPTION': 'API Description',
-    'TOS': None,
+    "TITLE": str(AdminSite.site_title) + " API",
+    "DESCRIPTION": "API Description",
+    "TOS": None,
     # Optional: MAY contain 'name', 'url', 'email'
-    'CONTACT': {'name': 'Contact name', 'url': 'https://google.com', 'email': 'Contact email'},
+    "CONTACT": {
+        "name": "Contact name",
+        "url": "https://google.com",
+        "email": "Contact email",
+    },
     # Optional: MUST contain 'name', MAY contain URL
-    'LICENSE': {},
-    'VERSION': '0.1.0',
+    "LICENSE": {},
+    "VERSION": "0.1.0",
     # Tags defined in the global scope
     # 'TAGS': [],
     # # Optional: MUST contain 'url', may contain 'description'
     # 'EXTERNAL_DOCS': {},
 }
 
-JAZZMIN_SETTINGS = {
+JAZZMIN_SETTINGS: Dict = {
     # square logo to use for your site, must be present in static files,
     # used for favicon and brand on top left
     # 'site_logo': 'books/img/logo.png',
     # Welcome text on the login screen
-    'welcome_sign': 'Welcome to the library',
+    "welcome_sign": "Welcome to the library",
     # Copyright on the footer
-    'copyright': 'Acme Library Ltd',
+    "copyright": "Acme Library Ltd",
     # The model admin to search from the search bar, search bar omitted if excluded
-    'search_model': 'administration.User',
+    "search_model": "administration.User",
     # Field name on user model that contains avatar image
-    'user_avatar': None,
+    "user_avatar": None,
     ############
     # Top Menu #
     ############
     # Links to put along the top menu
-    'topmenu_links': [
+    "topmenu_links": [
         # Url that gets reversed (Permissions can be added)
-        {'name': 'Home', 'url': 'admin:index', 'permissions': ['auth.view_user']},
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         # external url that opens in a new window (Permissions can be added)
         {
-            'name': 'Support',
-            'url': 'https://github.com/farridav/django-jazzmin/issues',
-            'new_window': True,
+            "name": "Support",
+            "url": "https://github.com/farridav/django-jazzmin/issues",
+            "new_window": True,
         },
         # model admin to link to (Permissions checked against model)
-        {'model': 'administration.User'},
-        {'model': 'common.Example'},
-        # App with dropdown menu to all its models pages (Permissions checked against models)
-        {'app': 'administration'},
-        {'app': 'common'},
+        {"model": AUTH_USER_MODEL},
+        {"model": "common.Example"},
+        # App with dropdown menu to all its models pages
+        # (Permissions checked against models)
+        {"app": "administration"},
+        {"app": "common"},
     ],
     #############
     # User Menu #
     #############
-    # Additional links to include in the user menu on the top right ('app' url type is not allowed)
-    'usermenu_links': [
+    # Additional links to include in the user menu on the top right
+    # ('app' url type is not allowed)
+    "usermenu_links": [
         {
-            'name': 'Support',
-            'url': 'https://github.com/farridav/django-jazzmin/issues',
-            'new_window': True,
+            "name": "Support",
+            "url": "https://github.com/farridav/django-jazzmin/issues",
+            "new_window": True,
         },
-        {'model': 'administration.user'},
+        {"model": AUTH_USER_MODEL},
     ],
     #############
     # Side Menu #
     #############
     # Whether to display the side menu
-    'show_sidebar': True,
+    "show_sidebar": True,
     # Whether to aut expand the menu
-    'navigation_expanded': True,
+    "navigation_expanded": True,
     # Hide these apps when generating side menu e.g (auth)
-    'hide_apps': [],
+    "hide_apps": [],
     # Hide these models when generating side menu (e.g auth.user)
-    'hide_models': [],
+    "hide_models": [],
     # List of apps (and/or models) to base side menu ordering off of
     # (does not need to contain all apps/models)
     # 'order_with_respect_to': ['auth', 'books', 'books.author', 'books.book'],
     # Custom links to append to app groups, keyed on app name
-    'custom_links': {
-        'administration': [
+    "custom_links": {
+        "administration": [
             {
-                'name': 'Make Messages',
-                'url': 'make_messages',
-                'icon': 'fas fa-comments',
+                "name": "Make Messages",
+                "url": "make_messages",
+                "icon": "fas fa-comments",
                 # 'permissions': ['books.view_book'],
             }
         ]
     },
-    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free
+    # Custom icons for side menu apps/models
+    # See https://fontawesome.com/icons?d=gallery&m=free
     # for a list of icon classes
-    'icons': {
-        'administration': 'fas fa-users',
-        'administration.user': 'fas fa-user',
-        'auth.Group': 'fas fa-users',
+    "icons": {
+        "administration": "fas fa-users",
+        "administration.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
     },
     # Icons that are used when one is not manually specified
-    'default_icon_parents': 'fas fa-chevron-circle-right',
-    'default_icon_children': 'fas fa-circle',
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
     #################
     # Related Modal #
     #################
     # Use modals instead of popups
-    'related_modal_active': True,
+    "related_modal_active": True,
     #############
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    'custom_css': 'css/custom.css',
-    'custom_js': None,
+    "custom_css": "css/custom.css",
+    "custom_js": None,
     # Whether to show the UI customizer on the sidebar
-    'show_ui_builder': True,
+    "show_ui_builder": True,
     ###############
     # Change view #
     ###############
@@ -290,12 +300,12 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    'changeform_format': 'horizontal_tabs',
+    "changeform_format": "horizontal_tabs",
     # override change forms on a per model admin basis
-    'changeform_format_overrides': {
-        'administration.user': 'collapsible',
-        'auth.group': 'vertical_tabs',
+    "changeform_format_overrides": {
+        "administration.user": "collapsible",
+        "auth.group": "vertical_tabs",
     },
     # Add a language dropdown into the admin
-    'language_chooser': True,
+    "language_chooser": True,
 }

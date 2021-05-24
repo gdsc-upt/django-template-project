@@ -1,6 +1,6 @@
 from typing import final, AnyStr, Final
 
-from django.db.models import Model, BooleanField, SlugField, CharField
+from django.db.models import Model, SlugField, CharField
 from django.utils.translation import gettext as _
 from model_utils import Choices
 from model_utils.fields import MonitorField
@@ -22,7 +22,7 @@ class BaseModel(Model):
         from django.urls import reverse_lazy
 
         return reverse_lazy(
-            f'admin:{self._meta.app_label}_{self._meta.model_name}_change',
+            f"admin:{self._meta.app_label}_{self._meta.model_name}_change",
             args=[str(self.id)],
         )
 
@@ -44,21 +44,19 @@ class Example(TimeStampedModel, StatusModel, BaseModel):
     Example model docstring that should be visible in Django documentation
     """
 
-    STATUS: Final[Choices] = Choices('published', 'reviewed')
+    STATUS: Final[Choices] = Choices("published", "reviewed")
 
     name = CharField(
-        _('example name'),
+        _("example name"),
         max_length=300,
-        help_text=_('Some help text that is shown in documentation'),
+        help_text=_("Some help text that is shown in documentation"),
     )
     published_at = MonitorField(
-        _('publishing datetime'), monitor='status', when=['published'], editable=False
+        _("publishing datetime"), monitor="status", when=["published"], editable=False
     )
 
-    published: Manager
-
-    def __str__(self) -> AnyStr:
+    def __str__(self) -> str:
         return str(self.name)
 
     class Meta:
-        db_table = 'examples'
+        db_table = "examples"

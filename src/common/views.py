@@ -10,13 +10,13 @@ from common.utils import create_swagger_info
 
 @create_swagger_info(
     extend_schema(
-        operation_id='Operation id',
-        description='Example description',
-        summary='Example operation summary',
+        operation_id="Operation id",
+        description="Example description",
+        summary="Example operation summary",
         auth=[],
         request=ExampleSerializer(),
         responses={status.HTTP_201_CREATED: ExampleSerializer()},
-        tags=['Common'],
+        tags=["Common"],
     )
 )
 class ExampleViewSet(ModelViewSet):

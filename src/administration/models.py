@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    email = EmailField(_('email address'), unique=True)
+    email = EmailField(_("email address"), unique=True)
 
     class Meta:
-        db_table = 'auth_user'
+        db_table = "auth_user"
