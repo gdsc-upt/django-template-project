@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
-    "tabular_permissions",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -309,3 +308,5 @@ JAZZMIN_SETTINGS: Dict = {
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
