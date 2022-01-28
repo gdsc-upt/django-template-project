@@ -28,6 +28,7 @@ django-debug-toolbar = "^3.2.1"
 nplusone = "^1.0.0"
 django-extra-checks = "^0.11.0"
 mypy = "^0.931"
+types-PyYAML = "^6.0.3"
 coverage = {version = "^6.3", extras = ["toml"]}
 
 [tool.black]
