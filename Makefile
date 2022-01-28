@@ -14,7 +14,6 @@ migrate: config.yml
 lint:
 	$(RUN) black $(BASE_DIR)
 	$(RUN) pylint $(BASE_DIR)
-	$(RUN) pycodestyle --exclude=migrations --max-line-length=88 $(BASE_DIR)
 	$(RUN) mypy $(BASE_DIR)
 
 superuser: config.yml
